@@ -1,0 +1,30 @@
+# This is for app configuration
+configEnv:
+  APP_MODE: "prd"
+secretsEnv:
+  username: admin
+  password: more-complex-secret
+configFile:
+  indexHtml: |
+    <html>
+    <body><h1>Hello I'm prd app from Helm!</h1></body>
+    </html>
+
+pvc:
+  enabled: true
+  storage: 2Gi
+
+autoscaling:
+  enabled: true
+
+ingress:
+  enabled: true
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: lab6.rs2i
+      paths:
+        - path: /
+          pathType: Prefix

@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "lab6.fullname" . }}
+  labels:
+    {{- include "lab6.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "lab6.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "lab6.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          {{- with .Values.startupProbe }}
+          startupProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          # lifecycle:
+          #   postStart:
+          #     exec:
+          #       command: ["/bin/sh", "-c", "echo ok > /usr/share/nginx/html/healthz && echo ok > /usr/share/nginx/html/healthz2"]
+          envFrom:
+          - configMapRef:
+              name: {{ include "lab6.fullname" . }}
+          - secretRef:
+              name:  {{ include "lab6.fullname" . }}   
+          volumeMounts:
+          - name: {{ include "lab6.fullname" . }}-config-volume
+            mountPath: /usr/share/nginx/html
+          - name: {{ include "lab6.fullname" . }}-volume
+            mountPath: /data
+      volumes:
+      - name: {{ include "lab6.fullname" . }}-config-volume
+        configMap:
+          name: {{ include "lab6.fullname" . }}-config
+      {{- if .Values.pvc.enabled }}
+      - name: {{ include "lab6.fullname" . }}-volume
+        persistentVolumeClaim:
+          claimName: {{ include "lab6.fullname" . }}
+      {{- end }}

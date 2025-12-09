@@ -1,0 +1,22 @@
+# This is for app configuration
+configEnv:
+  APP_MODE: "dev"
+secretsEnv:
+  username: admin
+  password: complex-secret
+configFile:
+  indexHtml: |
+    <html>
+    <body><h1>Hello I'm dev app from Helm!</h1></body>
+    </html>
+ingress:
+  enabled: true
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: lab6-dev.rs2i
+      paths:
+        - path: /
+          pathType: Prefix
