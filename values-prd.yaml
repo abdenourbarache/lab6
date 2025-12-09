@@ -7,7 +7,7 @@ secretsEnv:
 configFile:
   indexHtml: |
     <html>
-    <body><h1>Hello I'm prd app from Helm!</h1></body>
+    <body><h1>Hello I'm prd app from Helm! ENdd !!! </h1></body>
     </html>
 
 pvc:
