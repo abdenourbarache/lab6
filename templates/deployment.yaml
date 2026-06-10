@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "lab6.fullname" . }}
+  name: {{ include "lab7.fullname" . }}
   labels:
-    {{- include "lab6.labels" . | nindent 4 }}
+    {{- include "lab7.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "lab6.selectorLabels" . | nindent 6 }}
+      {{- include "lab7.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "lab6.labels" . | nindent 8 }}
+        {{- include "lab7.labels" . | nindent 8 }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
@@ -46,20 +46,20 @@ spec:
           #       command: ["/bin/sh", "-c", "echo ok > /usr/share/nginx/html/healthz && echo ok > /usr/share/nginx/html/healthz2"]
           envFrom:
           - configMapRef:
-              name: {{ include "lab6.fullname" . }}
+              name: {{ include "lab7.fullname" . }}
           - secretRef:
-              name:  {{ include "lab6.fullname" . }}   
+              name:  {{ include "lab7.fullname" . }}   
           volumeMounts:
-          - name: {{ include "lab6.fullname" . }}-config-volume
+          - name: {{ include "lab7.fullname" . }}-config-volume
             mountPath: /usr/share/nginx/html
-          - name: {{ include "lab6.fullname" . }}-volume
+          - name: {{ include "lab7.fullname" . }}-volume
             mountPath: /data
       volumes:
-      - name: {{ include "lab6.fullname" . }}-config-volume
+      - name: {{ include "lab7.fullname" . }}-config-volume
         configMap:
-          name: {{ include "lab6.fullname" . }}-config
+          name: {{ include "lab7.fullname" . }}-config
       {{- if .Values.pvc.enabled }}
-      - name: {{ include "lab6.fullname" . }}-volume
+      - name: {{ include "lab7.fullname" . }}-volume
         persistentVolumeClaim:
-          claimName: {{ include "lab6.fullname" . }}
+          claimName: {{ include "lab7.fullname" . }}
       {{- end }}
