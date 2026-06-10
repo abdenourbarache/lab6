@@ -1,7 +1,6 @@
 image:
   repository: abdenourbarache/lab8-nginx
-  tag: "latest"
-
+  tag: "sha-db9d68e"
 # This is for app configuration
 configEnv:
   APP_MODE: "dev"
@@ -17,8 +16,8 @@ ingress:
   enabled: true
   className: ""
   annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  # kubernetes.io/ingress.class: nginx
+  # kubernetes.io/tls-acme: "true"
   hosts:
     - host: lab7-dev.rs2i
       paths:
