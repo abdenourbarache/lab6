@@ -52,14 +52,14 @@ spec:
           - secretRef:
               name:  {{ include "lab7.fullname" . }}   
           volumeMounts:
-          - name: {{ include "lab7.fullname" . }}-config-volume
-            mountPath: /usr/share/nginx/html
+          # - name: {{ include "lab7.fullname" . }}-config-volume
+          #   mountPath: /usr/share/nginx/html
           - name: {{ include "lab7.fullname" . }}-volume
             mountPath: /data
       volumes:
-      - name: {{ include "lab7.fullname" . }}-config-volume
-        configMap:
-          name: {{ include "lab7.fullname" . }}-config
+      # - name: {{ include "lab7.fullname" . }}-config-volume
+      #   configMap:
+      #     name: {{ include "lab7.fullname" . }}-config
       {{- if .Values.pvc.enabled }}
       - name: {{ include "lab7.fullname" . }}-volume
         persistentVolumeClaim:
