@@ -13,6 +13,10 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
+imageCredentials:
+  username: abdenourbarache
+  password: "dckr_pat_4yG5LoQy0obvNYgBRT2uJ3YoVSo"  # override via --set or a secret values file — never commit a real value here
+
 # This is to override the chart name.
 nameOverride: ""
 fullnameOverride: ""
