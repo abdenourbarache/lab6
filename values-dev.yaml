@@ -1,6 +1,6 @@
 image:
   repository: abdenourbarache/lab8-nginx
-  tag: "sha-db9d68e"
+  tag: "sha-0abff5f"
 # This is for app configuration
 configEnv:
   APP_MODE: "dev"
