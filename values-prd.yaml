@@ -1,6 +1,6 @@
 image:
   repository: abdenourbarache/lab8-nginx
-  tag: "v1"
+  tag: "v2"
 # This is for app configuration
 configEnv:
   APP_MODE: "prd"
