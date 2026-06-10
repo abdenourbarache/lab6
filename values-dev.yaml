@@ -1,3 +1,7 @@
+image:
+  repository: abdenourbarache/lab8-nginx
+  tag: "latest"
+
 # This is for app configuration
 configEnv:
   APP_MODE: "dev"
